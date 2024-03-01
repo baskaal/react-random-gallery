@@ -1,13 +1,14 @@
 import sequential from "promise-sequential"
 import { getDimensions, isBadPlacement, getRandomPlacement } from "./"
+import { Images } from ".."
 
-export const createGallery = async (el: HTMLDivElement, imageUrls: { url: string }[]) => {
+export const createGallery = async (el: HTMLDivElement, imageUrls: Images) => {
   const canvasWidth = Math.floor(el.getBoundingClientRect().width || 0)
   let canvasHeight = 500
   let offsetY = 0
 
-  const images = await sequential(imageUrls.map((image: any) => async () => {
-    const { width, height } = await getDimensions(image.url);
+  const images = await sequential(imageUrls.map((image) => async () => {
+    const { width, height } = await getDimensions(image.src);
 
     return {
       ...image,

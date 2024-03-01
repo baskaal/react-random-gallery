@@ -3,13 +3,28 @@ import { useAsyncEffect } from 'rooks';
 import { createGallery } from './helpers';
 import { SGallery, SGalleryBackdrop, SGalleryItem, SGalleryItemImage } from './Gallery.styled';
 
-interface GalleryProps {
-  images?: { url: string }[];
+export type Image = {
+  src: string;
+  srcSet: string[];
+  formats?: {
+    srcSet: string[];
+    size: string;
+  }[];
+  alt: string;
+  style?: any;
+  width?: number;
+  height?: number;
+}
+
+export type Images = Image[];
+
+type GalleryProps = {
+  images: Images;
 }
 
 export const Gallery: FC<GalleryProps> = ({ images }) => {
   const galleryRef = useRef<HTMLDivElement>(null)
-  const [gallery, setGallery]: any = useState({})
+  const [gallery, setGallery] = useState<{ images?: Images, height?: number }>({})
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
   const previewImage = (index: number) => {
@@ -19,6 +34,10 @@ export const Gallery: FC<GalleryProps> = ({ images }) => {
   const clearPreviewImage = () => {
     setSelectedImageIndex(null);
   }
+
+  const formatSrcSet = (srcSet: string[]) => srcSet
+    .map((src, index) => `${src} ${index + 1}x`)
+    .join(', ');
 
   useAsyncEffect(async () => {
     if (!images?.length) return;
@@ -35,20 +54,39 @@ export const Gallery: FC<GalleryProps> = ({ images }) => {
           onClick={() => clearPreviewImage()}
           selected={selectedImageIndex !== null}
         />
-        { gallery.images?.map((image: any, imageIndex: number) => (
+        { gallery.images?.map((image, imageIndex: number) => (
           <SGalleryItem
             key={`image-${imageIndex}`}
             style={image.style}
             onClick={() => previewImage(imageIndex)}
             selected={selectedImageIndex === imageIndex}
           >
-            <SGalleryItemImage
-              src={selectedImageIndex === imageIndex ? image.largeUrl : image.url}
-              alt={image.smallUrl}
-              width={image.width}
-              height={image.height}
-              selected={selectedImageIndex === imageIndex}
-            />
+            { image.formats?.length ? (
+              <picture>
+                { image.formats.map((format) => (
+                  <source
+                    srcSet={formatSrcSet(format.srcSet)}
+                    media={`(min-width: ${format.size})`}
+                  />
+                )) }
+                <SGalleryItemImage
+                  src={image.src}
+                  srcSet={formatSrcSet(image.srcSet)}
+                  alt={image.alt}
+                  width={image.width || 0}
+                  height={image.height || 0}
+                  selected={selectedImageIndex === imageIndex}
+                />
+              </picture>
+            ) : (
+              <SGalleryItemImage
+                src={image.src}
+                alt={image.alt}
+                width={image.width || 0}
+                height={image.height || 0}
+                selected={selectedImageIndex === imageIndex}
+              />
+            ) }
           </SGalleryItem>
         )) }
       </SGallery>

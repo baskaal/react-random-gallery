@@ -1,4 +1,4 @@
-export const getDimensions = (url: any): Promise<any> => {
+export const getDimensions = (src: string): Promise<{ width: number, height: number }> => {
   return new Promise((resolve, reject) => {
     const img = new Image();
 
@@ -13,6 +13,6 @@ export const getDimensions = (url: any): Promise<any> => {
       reject(error);
     }
 
-    img.src = url;
+    img.src = src;
   });
 };
