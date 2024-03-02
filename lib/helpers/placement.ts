@@ -1,13 +1,14 @@
 import { random } from "lodash";
 import { contains, overlaps } from "./";
+import { Image } from "../types";
 
-export const getRandomPlacement = (image: any, canvasWidth: any, canvasHeight: any, offsetY: any) => {
+export const getRandomPlacement = (image: Image, canvasWidth: number, canvasHeight: number) => {
   const randomIncreaseValue = random(20, 80) / 100
-  const randomImageWidth = Math.round(image.width * randomIncreaseValue)
-  const randomImageHeight = Math.round(image.height * randomIncreaseValue)
+  const randomImageWidth = Math.round(image.width! * randomIncreaseValue)
+  const randomImageHeight = Math.round(image.height! * randomIncreaseValue)
 
   const randomX = random(0, (canvasWidth - randomImageWidth))
-  const randomY = random(offsetY, (canvasHeight - randomImageHeight))
+  const randomY = random(0, (canvasHeight - randomImageHeight))
   const randomRotate = random(-20, 20)
 
   return {

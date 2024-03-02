@@ -4,7 +4,6 @@ export const SGallery = styled.div<{ height: number }>(({ height }) => ({
   position: 'relative',
   width: '100%',
   height,
-  marginBottom: '200px',
 }))
 
 export const SGalleryItem = styled.div<{ selected: boolean }>(({ selected }): any => selected && ({

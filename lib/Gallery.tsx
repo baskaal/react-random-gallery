@@ -2,27 +2,14 @@ import { FC, useRef, useState } from 'react';
 import { useAsyncEffect } from 'rooks';
 import { createGallery } from './helpers';
 import { SGallery, SGalleryBackdrop, SGalleryItem, SGalleryItemImage } from './Gallery.styled';
-
-export type Image = {
-  src: string;
-  srcSet: string[];
-  formats?: {
-    srcSet: string[];
-    size: string;
-  }[];
-  alt: string;
-  style?: any;
-  width?: number;
-  height?: number;
-}
-
-export type Images = Image[];
+import { Images, Options } from './types';
 
 type GalleryProps = {
   images: Images;
+  options: Options;
 }
 
-export const Gallery: FC<GalleryProps> = ({ images }) => {
+export const Gallery: FC<GalleryProps> = ({ images, options }) => {
   const galleryRef = useRef<HTMLDivElement>(null)
   const [gallery, setGallery] = useState<{ images?: Images, height?: number }>({})
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
@@ -43,7 +30,7 @@ export const Gallery: FC<GalleryProps> = ({ images }) => {
     if (!images?.length) return;
     if (!galleryRef?.current) return;
 
-    const gallery = await createGallery(galleryRef.current, images)
+    const gallery = await createGallery(galleryRef.current, images, options)
     setGallery(gallery);
   }, [galleryRef.current])
 

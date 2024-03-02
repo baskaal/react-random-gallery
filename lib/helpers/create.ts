@@ -1,54 +1,60 @@
 import sequential from "promise-sequential"
+import { pull, sample } from "lodash"
 import { getDimensions, isBadPlacement, getRandomPlacement } from "./"
-import { Images } from ".."
+import { Images, Options } from "../types"
 
-export const createGallery = async (el: HTMLDivElement, imageUrls: Images) => {
+export const createGallery = async (el: HTMLDivElement, images: Images, options: Options) => {
   const canvasWidth = Math.floor(el.getBoundingClientRect().width || 0)
   let canvasHeight = 500
-  let offsetY = 0
 
-  const images = await sequential(imageUrls.map((image) => async () => {
-    const { width, height } = await getDimensions(image.src);
+  let tries = 0;
+  const maxTries = 2000
 
-    return {
-      ...image,
-      width,
-      height,
-    }
-  }));
+  const unplacedImages: Images = await sequential(images.map((image) => async () => ({
+    ...image,
+    ...(await getDimensions(image.src))
+  })));
 
-  const placedImages: any = [];
+  const placedImages: Images = [];
 
-  for (let index = 0; index < images.length; index++) {
-    const image = images[index];
+  while (unplacedImages.length) {
+    tries++;
 
-    let randomizedImage = getRandomPlacement(image, canvasWidth, canvasHeight, offsetY)
+    const randomImage = sample(unplacedImages)!;
+    const randomPlacedImage = getRandomPlacement(randomImage, canvasWidth, canvasHeight);
 
-    let tries = 0;
-    const maxTries = 500
+    const badPlacement = isBadPlacement({
+      image: randomPlacedImage,
+      placedImages,
+      canvasWidth,
+      canvasHeight,
+      offset: options.imageOffset
+    })
 
-    while (isBadPlacement({ image: randomizedImage, placedImages, canvasWidth, canvasHeight })) {
-      tries++
-      randomizedImage = getRandomPlacement(image, canvasWidth, canvasHeight, offsetY)
-
+    if (badPlacement) {
       if (tries === maxTries) {
-        offsetY = canvasHeight
-        canvasHeight += image.height * 1.25
+        canvasHeight += 100
         tries = 0
       }
+
+      continue;
     }
 
+    tries = 0;
+
     placedImages.push({
-      ...randomizedImage,
+      ...randomPlacedImage,
       style: {
         position: 'absolute',
-        width: randomizedImage.width + 'px',
-        height: randomizedImage.height + 'px',
-        left: randomizedImage.x + 'px',
-        top: randomizedImage.y + 'px',
-        // transform: `rotate(${image.rotate}deg)`,
+        width: randomPlacedImage.width + 'px',
+        height: randomPlacedImage.height + 'px',
+        left: randomPlacedImage.x + 'px',
+        top: randomPlacedImage.y + 'px',
+        transform: `rotate(${randomPlacedImage.rotate}deg)`,
       }
     });
+
+    pull(unplacedImages, randomImage)
   }
 
   return {
