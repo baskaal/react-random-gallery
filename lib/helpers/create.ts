@@ -7,21 +7,21 @@ export const createGallery = async (el: HTMLDivElement, images: Images, options:
   const canvasWidth = Math.floor(el.getBoundingClientRect().width || 0)
   let canvasHeight = 500
 
-  let tries = 0;
+  let tries = 0
   const maxTries = 2000
 
   const unplacedImages: Images = await sequential(images.map((image) => async () => ({
     ...image,
     ...(await getDimensions(image.src))
-  })));
+  })))
 
-  const placedImages: Images = [];
+  const placedImages: Images = []
 
   while (unplacedImages.length) {
-    tries++;
+    tries++
 
-    const randomImage = sample(unplacedImages)!;
-    const randomPlacedImage = getRandomPlacement(randomImage, canvasWidth, canvasHeight);
+    const randomImage = sample(unplacedImages)!
+    const randomPlacedImage = getRandomPlacement(randomImage, canvasWidth, canvasHeight)
 
     const badPlacement = isBadPlacement({
       image: randomPlacedImage,
@@ -37,10 +37,10 @@ export const createGallery = async (el: HTMLDivElement, images: Images, options:
         tries = 0
       }
 
-      continue;
+      continue
     }
 
-    tries = 0;
+    tries = 0
 
     placedImages.push({
       ...randomPlacedImage,
@@ -52,7 +52,7 @@ export const createGallery = async (el: HTMLDivElement, images: Images, options:
         top: randomPlacedImage.y + 'px',
         transform: `rotate(${randomPlacedImage.rotate}deg)`,
       }
-    });
+    })
 
     pull(unplacedImages, randomImage)
   }

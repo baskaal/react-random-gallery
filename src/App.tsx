@@ -11,19 +11,11 @@ const images = times(25, (index: number) => {
   const bg = randomcolor().replace('#', '');
   const w = getNumber();
   const h = getNumber();
-  const getUrl = (size = 1) => `https://placehold.co/${w * size}x${h * size}/${bg}/ffffff?font=roboto`;
-
-  const small = getUrl();
-  const medium = getUrl(2);
-  const large = getUrl(3);
+  const getImgUrl = (retina = 0) =>  `https://placehold.co/${w}x${h}${retina ? `@${retina}x` : ''}/${bg}/ffffff.webp?font=roboto`;
 
   return {
-    src: small,
-    srcSet: [small, medium, large],
-    formats: [
-      { srcSet: [medium, large], size: '40em' },
-      { srcSet: [large], size: '75em' },
-    ],
+    src: getImgUrl(),
+    srcSet: [getImgUrl(), getImgUrl(2), getImgUrl(3)],
     alt: `Example image ${index}`
   };
 });

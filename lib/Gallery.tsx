@@ -68,6 +68,7 @@ export const Gallery: FC<GalleryProps> = ({ images, options }) => {
             ) : (
               <SGalleryItemImage
                 src={image.src}
+                srcSet={formatSrcSet(image.srcSet)}
                 alt={image.alt}
                 width={image.width || 0}
                 height={image.height || 0}
