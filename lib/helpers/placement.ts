@@ -1,8 +1,8 @@
 import { random } from "lodash";
 import { contains, overlaps } from "./";
-import { Image } from "../types";
+import { TImage } from "../types";
 
-export const getRandomPlacement = (image: Image, canvasWidth: number, canvasHeight: number) => {
+export const getRandomPlacement = (image: TImage, canvasWidth: number, canvasHeight: number) => {
   const randomIncreaseValue = random(20, 80) / 100
   const randomImageWidth = Math.round(image.width! * randomIncreaseValue)
   const randomImageHeight = Math.round(image.height! * randomIncreaseValue)

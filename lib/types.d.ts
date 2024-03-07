@@ -1,4 +1,4 @@
-export type Image = {
+export type TImage = {
   src: string;
   srcSet: string[];
   formats?: {
@@ -11,9 +11,13 @@ export type Image = {
   height?: number;
 }
 
-export type Images = Image[];
+export type TImages = TImage[];
 
-export type Options = {
+export type TOptions = {
   imageOffset?: number;
   galleryHeight?: string | number;
+  animation: {
+    duration?: string | number;
+    delay?: string | number;
+  }
 }

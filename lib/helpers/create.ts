@@ -1,9 +1,9 @@
 import sequential from "promise-sequential"
 import { pull, sample } from "lodash"
 import { getDimensions, isBadPlacement, getRandomPlacement } from "./"
-import { Images, Options } from "../types"
+import { TImages, TOptions } from "../types"
 
-export const createGallery = async (el: HTMLDivElement, images: Images, options: Options) => {
+export const createGallery = async (el: HTMLDivElement, images: TImages, options: TOptions) => {
   const canvasWidth = Math.floor(el.getBoundingClientRect().width || 0)
   let canvasHeight = options.galleryHeight ?
     Math.floor(el.getBoundingClientRect().height || 0) : 500
@@ -11,12 +11,12 @@ export const createGallery = async (el: HTMLDivElement, images: Images, options:
   const maxTries = 2000
   let tries = 0
 
-  let unplacedImages: Images = await sequential(images.map((image) => async () => ({
+  let unplacedImages: TImages = await sequential(images.map((image) => async () => ({
     ...image,
-    ...(await getDimensions(image.src))
+    ...(await getDimensions(image))
   })))
 
-  const placedImages: Images = []
+  const placedImages: TImages = []
 
   while (unplacedImages.length) {
     tries++
@@ -52,12 +52,11 @@ export const createGallery = async (el: HTMLDivElement, images: Images, options:
     placedImages.push({
       ...randomPlacedImage,
       style: {
-        position: 'absolute',
         width: randomPlacedImage.width + 'px',
         height: randomPlacedImage.height + 'px',
         left: randomPlacedImage.x + 'px',
         top: randomPlacedImage.y + 'px',
-        transform: `rotate(${randomPlacedImage.rotate}deg)`,
+        transform: `translate(0, 0) rotate(${randomPlacedImage.rotate}deg)`,
       }
     })
 

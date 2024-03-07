@@ -1,11 +1,21 @@
-import { times, random } from 'lodash';
+import { times, random, last } from 'lodash';
 import randomcolor from 'randomcolor';
 
 import { Gallery } from '../lib'
 
 import 'reset-css/reset.css'
 
-const getNumber = () => Math.ceil(random(80, 200) / 10) * 10;
+const getNumber = () => {
+  const rangePerBreakpoint: [number, [number, number]][] = [
+    [0, [40, 160]],
+    [768, [60, 200]],
+    [1024, [80, 240]],
+  ];
+
+  const range = last(rangePerBreakpoint.filter(([bp]) => window.innerWidth >= bp))!;
+
+  return Math.ceil(random(range[1][0], range[1][1]) / 10) * 10;
+}
 
 const images = times(25, (index: number) => {
   const bg = randomcolor().replace('#', '');
@@ -23,7 +33,10 @@ const images = times(25, (index: number) => {
 const App = () => {
   const options = {
     imageOffset: 10,
-    galleryHeight: 'calc(100vh - 4rem)'
+    galleryHeight: 'calc(100vh - 4rem)',
+    animation: {
+      duration: '.5s',
+    }
   }
 
   return (

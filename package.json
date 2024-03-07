@@ -1,6 +1,5 @@
 {
-  "name": "react-lib",
-  "private": true,
+  "name": "react-random-gallery",
   "version": "0.0.0",
   "type": "module",
   "author": "Bas Kaal",
