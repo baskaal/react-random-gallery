@@ -11,7 +11,7 @@ type GalleryProps = {
 
 export const Gallery: FC<GalleryProps> = ({ images, options }) => {
   const galleryRef = useRef<HTMLDivElement>(null)
-  const [gallery, setGallery] = useState<{ images?: Images, height?: number }>({})
+  const [gallery, setGallery] = useState<{ height: number, images?: Images }>({ height: 500 })
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
   const previewImage = (index: number) => {
@@ -36,7 +36,7 @@ export const Gallery: FC<GalleryProps> = ({ images, options }) => {
 
   return (
     <div ref={galleryRef}>
-      <SGallery height={gallery.height || 500}>
+      <SGallery height={options.galleryHeight || gallery.height}>
         <SGalleryBackdrop
           onClick={() => clearPreviewImage()}
           selected={selectedImageIndex !== null}
@@ -60,8 +60,6 @@ export const Gallery: FC<GalleryProps> = ({ images, options }) => {
                   src={image.src}
                   srcSet={formatSrcSet(image.srcSet)}
                   alt={image.alt}
-                  width={image.width || 0}
-                  height={image.height || 0}
                   selected={selectedImageIndex === imageIndex}
                 />
               </picture>
@@ -70,8 +68,6 @@ export const Gallery: FC<GalleryProps> = ({ images, options }) => {
                 src={image.src}
                 srcSet={formatSrcSet(image.srcSet)}
                 alt={image.alt}
-                width={image.width || 0}
-                height={image.height || 0}
                 selected={selectedImageIndex === imageIndex}
               />
             ) }

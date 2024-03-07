@@ -1,39 +1,37 @@
 import styled from 'styled-components'
 
-export const SGallery = styled.div<{ height: number }>(({ height }) => ({
+export const SGallery = styled.div<{ height: string | number }>(({ height }) => ({
   position: 'relative',
   width: '100%',
   height,
 }))
 
-export const SGalleryItem = styled.div<{ selected: boolean }>(({ selected }): any => selected && ({
-  position: 'fixed !important',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  top: '0 !important',
-  left: '0 !important',
-  right: '0',
-  bottom: '0',
-  width: '100%',
-  height: '100%',
-  maxWidth: 'none !important',
-  maxHeight: 'none !important',
-  transform: 'none !important',
-  pointerEvents: 'none',
-  zIndex: '3000'
+export const SGalleryItem = styled.div<{ selected: boolean }>(({ selected }): any => ({
+  transition: 'all .4s ease',
+
+  ...(selected && {
+    position: 'absolute !important',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: '0 !important',
+    left: '0 !important',
+    right: '0 !important',
+    bottom: '0 !important',
+    width: '100% !important',
+    height: '100% !important',
+    maxWidth: 'none !important',
+    maxHeight: 'none !important',
+    transform: 'none !important',
+    pointerEvents: 'none',
+    overflow: 'hidden',
+    zIndex: 3000
+  })
 }))
 
-export const SGalleryItemImage = styled.img<{ width: number, height: number, selected: boolean }>(({ width, height, selected }) => ({
+export const SGalleryItemImage = styled.img<{ selected: boolean }>(() => ({
   cursor: 'pointer',
-  width,
-  height,
-
-  ...(selected && ({
-    width: 'auto',
-    maxWidth: '80%',
-    maxHeight: '80%',
-  }))
+  width: '100%',
 }))
 
 export const SGalleryBackdrop = styled.div<{ selected: boolean }>(({ selected }) => ({
@@ -42,10 +40,10 @@ export const SGalleryBackdrop = styled.div<{ selected: boolean }>(({ selected })
   left: '0',
   right: '0',
   bottom: '0',
-  backgroundColor: 'rgba(black, .5)',
-  opacity: '0',
+  backgroundColor: 'rgba(0, 0, 0, .5)',
   pointerEvents: 'none',
-  zIndex: '2000',
+  opacity: 0,
+  zIndex: 2000,
   transition: 'all .5s ease',
 
   ...(selected && ({

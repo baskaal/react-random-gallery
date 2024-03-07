@@ -15,4 +15,5 @@ export type Images = Image[];
 
 export type Options = {
   imageOffset?: number;
+  galleryHeight?: string | number;
 }
