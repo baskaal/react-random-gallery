@@ -7,9 +7,10 @@ import 'reset-css/reset.css'
 
 const getNumber = () => {
   const rangePerBreakpoint: [number, [number, number]][] = [
-    [0, [40, 160]],
-    [768, [60, 200]],
-    [1024, [80, 240]],
+    [0, [20, 100]],
+    [320, [40, 140]],
+    [768, [60, 180]],
+    [1024, [80, 220]],
   ];
 
   const range = last(rangePerBreakpoint.filter(([bp]) => window.innerWidth >= bp))!;
@@ -32,7 +33,6 @@ const images = times(25, (index: number) => {
 
 const App = () => {
   const options = {
-    imageOffset: 10,
     galleryHeight: 'calc(100vh - 4rem)',
     animation: {
       duration: '.5s',
