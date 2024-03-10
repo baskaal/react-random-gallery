@@ -1,6 +1,5 @@
-import sequential from "promise-sequential"
 import { pull, sample } from "lodash"
-import { getDimensions, isBadPlacement, getRandomPlacement } from "./"
+import { isBadPlacement, getRandomPlacement, loadImages } from "./"
 import { TImages, TOptions } from "../types"
 
 export const createGallery = async (el: HTMLDivElement, images: TImages, options: TOptions) => {
@@ -11,10 +10,7 @@ export const createGallery = async (el: HTMLDivElement, images: TImages, options
   const maxTries = 2000
   let tries = 0
 
-  let unplacedImages: TImages = await sequential(images.map((image) => async () => ({
-    ...image,
-    ...(await getDimensions(image))
-  })))
+  let unplacedImages: TImages = await loadImages(images)
 
   const placedImages: TImages = []
 
