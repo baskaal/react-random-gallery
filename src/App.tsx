@@ -1,9 +1,7 @@
 import { times, random, last } from 'lodash';
 import randomcolor from 'randomcolor';
 
-import { Gallery } from '../lib'
-
-import 'reset-css/reset.css'
+import { Gallery, TOptions } from '../lib';
 
 const getNumber = () => {
   const rangePerBreakpoint: [number, [number, number]][] = [
@@ -32,8 +30,14 @@ const images = times(25, (index: number) => {
 });
 
 const App = () => {
-  const options = {
-    galleryHeight: 'calc(100vh - 4rem)',
+  const options: TOptions = {
+    gallery: {
+      height: 'calc(100vh - 4rem)'
+    },
+    images: {
+      offset: -10,
+      rotation: 10,
+    },
     animation: {
       duration: '.5s',
     }

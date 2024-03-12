@@ -15,5 +15,5 @@ export const loadImages = (images: TImages): Promise<TImages> => {
 
     img.srcset = formatSrcSet(image.srcSet);
     img.src = image.src;
-  })))
+  })));
 }

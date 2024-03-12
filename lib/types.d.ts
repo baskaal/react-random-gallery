@@ -14,10 +14,15 @@ export type TImage = {
 export type TImages = TImage[];
 
 export type TOptions = {
-  imageOffset?: number;
-  galleryHeight?: string | number;
+  gallery?: {
+    height?: string | number;
+  };
+  images?: {
+    offset?: number;
+    rotation?: number;
+  };
   animation: {
     duration?: string | number;
     delay?: string | number;
-  }
+  };
 }

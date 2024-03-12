@@ -1,11 +1,10 @@
-import { pull, sample } from "lodash"
+import { pull, random, sample } from "lodash"
 import { isBadPlacement, getRandomPlacement, loadImages } from "./"
 import { TImages, TOptions } from "../types"
 
 export const createGallery = async (el: HTMLDivElement, images: TImages, options: TOptions) => {
   const canvasWidth = Math.floor(el.getBoundingClientRect().width || 0)
-  let canvasHeight = options.galleryHeight ?
-    Math.floor(el.getBoundingClientRect().height || 0) : 500
+  let canvasHeight = options.gallery?.height ? Math.floor(el.getBoundingClientRect().height || 0) : 500
 
   const maxTries = 2000
   let tries = 0
@@ -25,14 +24,14 @@ export const createGallery = async (el: HTMLDivElement, images: TImages, options
       placedImages,
       canvasWidth,
       canvasHeight,
-      offset: options.imageOffset
+      offset: options.images?.offset
     })
 
     const noSpaceLeft = tries === maxTries;
 
     if (badPlacement) {
       if (noSpaceLeft) {
-        if (options.galleryHeight) {
+        if (options.gallery?.height) {
           unplacedImages = [];
         } else {
           canvasHeight += 100
@@ -45,6 +44,8 @@ export const createGallery = async (el: HTMLDivElement, images: TImages, options
 
     tries = 0
 
+    const rotation = options.images?.rotation ? random(-options.images?.rotation, options.images?.rotation) : 0;
+
     placedImages.push({
       ...randomPlacedImage,
       style: {
@@ -52,7 +53,7 @@ export const createGallery = async (el: HTMLDivElement, images: TImages, options
         height: randomPlacedImage.height + 'px',
         left: randomPlacedImage.x + 'px',
         top: randomPlacedImage.y + 'px',
-        transform: `translate(0, 0) rotate(${randomPlacedImage.rotate}deg)`,
+        transform: `translate(0, 0) rotate(${rotation}deg)`,
       }
     })
 
