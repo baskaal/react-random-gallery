@@ -10,7 +10,7 @@ const posAnimation = ({ top, left, transform }: any) => keyframes`
   from {
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) rotate(0deg);
   }
   to {
     top: ${top};
@@ -24,7 +24,7 @@ export const SGalleryItem = styled.div<{ selected: boolean, animation: any }>(
     position: 'absolute',
     left: '50%',
     top: '50%',
-    transform: 'translate(-50%, -50%)',
+    transform: 'translate(-50%, -50%) rotate(0deg)',
 
     ...(selected && {
       display: 'flex',
