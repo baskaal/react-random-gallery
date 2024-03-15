@@ -1,63 +1,50 @@
-import { pull, random, sample } from "lodash"
-import { isBadPlacement, getRandomPlacement, loadImages } from "./"
-import { TImages, TOptions } from "../types"
+import { pull, sample } from "lodash"
+import { checkPlacement, getRandomPlacement, loadImages } from "./"
+import { TImage, TLoadedImage, TPlacedImage, TOptions } from "../types"
 
-export const createGallery = async (el: HTMLDivElement, images: TImages, options: TOptions) => {
+export const createGallery = async (el: HTMLDivElement, images: TImage[], options: TOptions) => {
   const canvasWidth = Math.floor(el.getBoundingClientRect().width || 0)
   let canvasHeight = options.gallery?.height ? Math.floor(el.getBoundingClientRect().height || 0) : 500
 
   const maxTries = 2000
   let tries = 0
 
-  let unplacedImages: TImages = await loadImages(images)
+  let unplacedImages: TLoadedImage[] = await loadImages(images)
 
-  const placedImages: TImages = []
+  const placedImages: TPlacedImage[] = []
 
   while (unplacedImages.length) {
     tries++
 
     const randomImage = sample(unplacedImages)!
-    const randomPlacedImage = getRandomPlacement(randomImage, canvasWidth, canvasHeight)
+    const placedImage = getRandomPlacement(randomImage, canvasWidth, canvasHeight, options)
 
-    const badPlacement = isBadPlacement({
-      image: randomPlacedImage,
+    const goodPlacement = checkPlacement({
+      image: placedImage,
       placedImages,
       canvasWidth,
       canvasHeight,
       offset: options.images?.offset
     })
 
-    const noSpaceLeft = tries === maxTries;
-
-    if (badPlacement) {
-      if (noSpaceLeft) {
-        if (options.gallery?.height) {
-          unplacedImages = [];
-        } else {
-          canvasHeight += 100
-          tries = 0
-        }
-      }
+    if (goodPlacement) {
+      placedImages.push(placedImage)
+      pull(unplacedImages, randomImage)
+      tries = 0
 
       continue
     }
 
-    tries = 0
+    const noSpaceLeft = tries === maxTries;
 
-    const rotation = options.images?.rotation ? random(-options.images?.rotation, options.images?.rotation) : 0;
-
-    placedImages.push({
-      ...randomPlacedImage,
-      style: {
-        width: randomPlacedImage.width + 'px',
-        height: randomPlacedImage.height + 'px',
-        left: randomPlacedImage.x + 'px',
-        top: randomPlacedImage.y + 'px',
-        transform: `translate(0, 0) rotate(${rotation}deg)`,
+    if (noSpaceLeft) {
+      if (options.gallery?.height) {
+        unplacedImages = [];
+      } else {
+        canvasHeight += 100
+        tries = 0
       }
-    })
-
-    pull(unplacedImages, randomImage)
+    }
   }
 
   return {

@@ -3,16 +3,16 @@ import { useAsyncEffect } from 'rooks';
 import { SGallery, SGalleryBackdrop } from './Gallery.styled';
 import { GalleryItem } from './GalleryItem';
 import { createGallery } from '../helpers';
-import { TImages, TOptions } from '../types';
+import { TImage, TPlacedImage, TOptions } from '../types';
 
 type GalleryProps = {
-  images: TImages;
+  images: TImage[];
   options: TOptions;
 }
 
 export const Gallery: FC<GalleryProps> = ({ images, options }) => {
   const galleryRef = useRef<HTMLDivElement>(null)
-  const [gallery, setGallery] = useState<{ height: number, images?: TImages }>({ height: 500 })
+  const [gallery, setGallery] = useState<{ height: number, images?: TPlacedImage[] }>({ height: 500 })
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
   const previewImage = (index: number) => {

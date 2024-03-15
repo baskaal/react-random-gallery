@@ -1,7 +1,7 @@
 import { formatSrcSet } from ".";
-import { TImages } from "../types";
+import { TImage, TLoadedImage } from "../types";
 
-export const loadImages = (images: TImages): Promise<TImages> => {
+export const loadImages = (images: TImage[]): Promise<TLoadedImage[]> => {
   return Promise.all(images.map(async (image) => new Promise((resolve, reject) => {
     const img = new Image();
 
@@ -13,7 +13,7 @@ export const loadImages = (images: TImages): Promise<TImages> => {
 
     img.onerror = (error) => reject(error);
 
-    img.srcset = formatSrcSet(image.srcSet);
+    if (image.srcSet) img.srcset = formatSrcSet(image.srcSet);
     img.src = image.src;
   })));
 }

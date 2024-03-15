@@ -1,17 +1,36 @@
 export type TImage = {
   src: string;
-  srcSet: string[];
+  srcSet?: string[];
+  alt?: string;
   formats?: {
     srcSet: string[];
     size: string;
   }[];
-  alt: string;
-  style?: any;
-  width?: number;
-  height?: number;
 }
 
-export type TImages = TImage[];
+export type TLoadedImage = TImage & {
+  width: number;
+  height: number;
+}
+
+export type TPlacedImage = TLoadedImage & {
+  x: number;
+  y: number;
+  style: {
+    width: string | number;
+    height: string | number;
+    left: string | number;
+    top: string | number;
+    transform: string;
+  };
+}
+
+export type TImageCoords = {
+  x1: number;
+  x2: number;
+  y1: number;
+  y2: number;
+}
 
 export type TOptions = {
   gallery?: {
@@ -20,6 +39,7 @@ export type TOptions = {
   images?: {
     offset?: number;
     rotation?: number;
+    maxWidth?: number;
   };
   animation: {
     duration?: string | number;

@@ -1,15 +1,15 @@
 import { SGalleryItem, SGalleryItemImage } from "./Gallery.styled";
-import { TImage, TOptions } from "../types";
+import { TPlacedImage, TOptions } from "../types";
 import { formatSrcSet } from "../helpers";
 
 type GalleryItemProps = {
-  image: TImage;
-  onPreviewImage: () => void;
+  image: TPlacedImage;
   selected: boolean;
+  onPreviewImage: () => void;
   options: TOptions;
 }
 
-export const GalleryItem = ({ image, onPreviewImage, selected, options }: GalleryItemProps) => (
+export const GalleryItem = ({ image, selected, onPreviewImage, options }: GalleryItemProps) => (
   <SGalleryItem
     style={{
       width: image.style.width,
@@ -35,7 +35,7 @@ export const GalleryItem = ({ image, onPreviewImage, selected, options }: Galler
       )) }
       <SGalleryItemImage
         src={image.src}
-        srcSet={formatSrcSet(image.srcSet)}
+        srcSet={image.srcSet && formatSrcSet(image.srcSet)}
         alt={image.alt}
         selected={selected}
       />
