@@ -2,13 +2,13 @@ import { random } from "lodash";
 import { contains, overlaps } from "./";
 import { TLoadedImage, TImageCoords, TOptions, TPlacedImage } from "../types";
 
-export const getRandomPlacement = (image: TLoadedImage, canvasWidth: number, canvasHeight: number, options: TOptions): TPlacedImage => {
+export const getRandomPlacement = (image: TLoadedImage, galleryWidth: number, galleryHeight: number, options: TOptions): TPlacedImage => {
   // const randomIncreaseValue = random(20, 80) / 100
   // const randomImageWidth = Math.round(image.width! * randomIncreaseValue)
   // const randomImageHeight = Math.round(image.height! * randomIncreaseValue)
   const randomPos = {
-    x: random(0, canvasWidth - image.width!),
-    y: random(0, canvasHeight - image.height!)
+    x: random(0, galleryWidth - image.width!),
+    y: random(0, galleryHeight - image.height!)
   };
 
   const rotation = options.images?.rotation ? random(-options.images?.rotation, options.images?.rotation) : 0;
@@ -35,9 +35,9 @@ export const getCoordinates = ({ x, y, width, height }: TPlacedImage): TImageCoo
   y2: y + height
 });
 
-export const isOffCanvas = (image: TImageCoords, canvasWidth: number, canvasHeight: number) => {
-  if (image.x1 < 0 || image.x2 > canvasWidth) return true;
-  if (image.y1 < 0 || image.y2 > canvasHeight) return true;
+export const isOffCanvas = (image: TImageCoords, galleryWidth: number, galleryHeight: number) => {
+  if (image.x1 < 0 || image.x2 > galleryWidth) return true;
+  if (image.y1 < 0 || image.y2 > galleryHeight) return true;
 
   return false
 }
@@ -45,19 +45,19 @@ export const isOffCanvas = (image: TImageCoords, canvasWidth: number, canvasHeig
 export const checkPlacement = ({
   image,
   placedImages,
-  canvasWidth,
-  canvasHeight,
+  galleryWidth,
+  galleryHeight,
   offset = 0,
 }: {
   image: TPlacedImage,
   placedImages: TPlacedImage[],
-  canvasWidth: number,
-  canvasHeight: number,
+  galleryWidth: number,
+  galleryHeight: number,
   offset?: number,
 }) => {
   const img1 = getCoordinates(image);
 
-  if (isOffCanvas(img1, canvasWidth, canvasHeight)) return false;
+  if (isOffCanvas(img1, galleryWidth, galleryHeight)) return false;
 
   return !(placedImages.some((placedImage) => {
     const img2 = getCoordinates(placedImage);

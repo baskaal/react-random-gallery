@@ -1,10 +1,10 @@
-import { pull, sample } from "lodash"
+import { maxBy, pull, sample } from "lodash"
 import { checkPlacement, getRandomPlacement, loadImages } from "./"
 import { TImage, TLoadedImage, TPlacedImage, TOptions } from "../types"
 
 export const createGallery = async (el: HTMLDivElement, images: TImage[], options: TOptions) => {
-  const canvasWidth = Math.floor(el.getBoundingClientRect().width || 0)
-  let canvasHeight = options.gallery?.height ? Math.floor(el.getBoundingClientRect().height || 0) : 500
+  const galleryWidth = Math.floor(el.getBoundingClientRect().width || 0)
+  let galleryHeight = options.gallery?.height ? Math.floor(el.getBoundingClientRect().height || 0) : 500
 
   const maxTries = 2000
   let tries = 0
@@ -17,13 +17,13 @@ export const createGallery = async (el: HTMLDivElement, images: TImage[], option
     tries++
 
     const randomImage = sample(unplacedImages)!
-    const placedImage = getRandomPlacement(randomImage, canvasWidth, canvasHeight, options)
+    const placedImage = getRandomPlacement(randomImage, galleryWidth, galleryHeight, options)
 
     const goodPlacement = checkPlacement({
       image: placedImage,
       placedImages,
-      canvasWidth,
-      canvasHeight,
+      galleryWidth,
+      galleryHeight,
       offset: options.images?.offset
     })
 
@@ -35,20 +35,25 @@ export const createGallery = async (el: HTMLDivElement, images: TImage[], option
       continue
     }
 
-    const noSpaceLeft = tries === maxTries;
+    const noSpaceLeft = tries === maxTries
 
     if (noSpaceLeft) {
       if (options.gallery?.height) {
-        unplacedImages = [];
+        unplacedImages = []
       } else {
-        canvasHeight += 100
+        galleryHeight += randomImage.height
         tries = 0
       }
     }
   }
 
+  if (!options.gallery?.height) {
+    const bottomImage = maxBy(placedImages, ({ y, height }) => y + height)!
+    galleryHeight = bottomImage.x + bottomImage.height
+  }
+
   return {
     images: placedImages,
-    height: canvasHeight
+    height: galleryHeight
   }
 }
