@@ -1,6 +1,6 @@
-import { SGalleryItem, SGalleryItemImage } from "./Gallery.styled";
-import { TPlacedImage, TOptions } from "../types";
-import { formatSrcSet } from "../helpers";
+import { SGalleryItem, SGalleryItemImage } from './Gallery.styled'
+import { TPlacedImage, TOptions } from '../types'
+import { formatSrcSet } from '../helpers'
 
 type GalleryItemProps = {
   image: TPlacedImage;
@@ -20,8 +20,8 @@ export const GalleryItem = ({ image, selected, onPreviewImage, options }: Galler
       style: {
         top: image.style.top,
         left: image.style.left,
-        transform: image.style.transform,
-      },
+        transform: image.style.transform
+      }
     }}
     onClick={onPreviewImage}
     selected={selected}

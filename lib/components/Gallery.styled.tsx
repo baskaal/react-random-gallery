@@ -3,7 +3,7 @@ import styled, { css, keyframes } from 'styled-components'
 export const SGallery = styled.div<{ height: string | number }>(({ height }) => ({
   position: 'relative',
   width: '100%',
-  height,
+  height
 }))
 
 const posAnimation = ({ top, left, transform }: any) => keyframes`
@@ -17,7 +17,7 @@ const posAnimation = ({ top, left, transform }: any) => keyframes`
     left: ${left};
     transform: ${transform};
   }
-`;
+`
 
 export const SGalleryItem = styled.div<{ selected: boolean, animation: any }>(
   ({ selected }) => ({
@@ -56,7 +56,7 @@ export const SGalleryItem = styled.div<{ selected: boolean, animation: any }>(
 
 export const SGalleryItemImage = styled.img<{ selected: boolean }>(() => ({
   cursor: 'pointer',
-  width: '100%',
+  width: '100%'
 }))
 
 export const SGalleryBackdrop = styled.div<{ selected: boolean }>(({ selected }) => ({
@@ -73,6 +73,6 @@ export const SGalleryBackdrop = styled.div<{ selected: boolean }>(({ selected })
 
   ...(selected && ({
     opacity: 1,
-    pointerEvents: 'auto',
+    pointerEvents: 'auto'
   }))
 }))

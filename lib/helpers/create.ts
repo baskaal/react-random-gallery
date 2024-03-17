@@ -1,6 +1,6 @@
-import { maxBy, pull, sample } from "lodash"
-import { checkPlacement, getRandomPlacement, loadImages } from "./"
-import { TImage, TLoadedImage, TPlacedImage, TOptions } from "../types"
+import { maxBy, pull, sample } from 'lodash'
+import { checkPlacement, getRandomPlacement, loadImages } from './'
+import { TImage, TLoadedImage, TPlacedImage, TOptions } from '../types'
 
 export const createGallery = async (el: HTMLDivElement, images: TImage[], options: TOptions) => {
   const galleryWidth = Math.floor(el.getBoundingClientRect().width || 0)

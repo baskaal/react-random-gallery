@@ -1,9 +1,9 @@
-import { FC, useRef, useState } from 'react';
-import { useAsyncEffect } from 'rooks';
-import { SGallery, SGalleryBackdrop } from './Gallery.styled';
-import { GalleryItem } from './GalleryItem';
-import { createGallery } from '../helpers';
-import { TImage, TPlacedImage, TOptions } from '../types';
+import { FC, useRef, useState } from 'react'
+import { useAsyncEffect } from 'rooks'
+import { SGallery, SGalleryBackdrop } from './Gallery.styled'
+import { GalleryItem } from './GalleryItem'
+import { createGallery } from '../helpers'
+import { TImage, TPlacedImage, TOptions } from '../types'
 
 type GalleryProps = {
   images: TImage[];
@@ -13,22 +13,22 @@ type GalleryProps = {
 export const Gallery: FC<GalleryProps> = ({ images, options }) => {
   const galleryRef = useRef<HTMLDivElement>(null)
   const [gallery, setGallery] = useState<{ height: number, images?: TPlacedImage[] }>({ height: 500 })
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
 
   const previewImage = (index: number) => {
-    setSelectedImageIndex(index);
+    setSelectedImageIndex(index)
   }
 
   const clearPreviewImage = () => {
-    setSelectedImageIndex(null);
+    setSelectedImageIndex(null)
   }
 
   useAsyncEffect(async () => {
-    if (!images?.length) return;
-    if (!galleryRef?.current) return;
+    if (!images?.length) return
+    if (!galleryRef?.current) return
 
     const gallery = await createGallery(galleryRef.current, images, options)
-    setGallery(gallery);
+    setGallery(gallery)
   }, [galleryRef.current])
 
   return (
@@ -50,4 +50,4 @@ export const Gallery: FC<GalleryProps> = ({ images, options }) => {
       </SGallery>
     </div>
   )
-};
+}
