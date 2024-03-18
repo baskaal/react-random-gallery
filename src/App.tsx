@@ -1,6 +1,7 @@
 import { times, random, last } from 'lodash'
 import randomcolor from 'randomcolor'
 import { Gallery, TOptions } from '../lib'
+import { GlobalStyle, colors } from './style'
 
 const getNumber = (range: [number, number]) => Math.ceil(random(range[0], range[1]) / 10) * 10
 
@@ -45,9 +46,12 @@ const App = () => {
   const images = getImages()
 
   return (
-    <div style={{ margin: '2rem', border: '1px solid grey' }}>
-      <Gallery images={images} options={options} />
-    </div>
+    <>
+      <GlobalStyle />
+      <div style={{ margin: '2rem', border: `1px solid ${colors.grey}` }}>
+        <Gallery images={images} options={options} />
+      </div>
+    </>
   )
 }
 
