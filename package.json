@@ -1,36 +1,54 @@
 {
   "name": "react-random-gallery",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "type": "module",
   "author": "Bas Kaal",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3askaal/react-random-gallery.git"
+  },
+  "bugs": {
+    "url": "https://github.com/3askaal/react-random-gallery/issues"
+  },
+  "homepage": "https://github.com/3askaal/react-random-gallery#readme",
+  "keywords": [
+    "react",
+    "component",
+    "random",
+    "image",
+    "gallery"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "build:lib": "tsc && vite build --config vite.lib.config.ts",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "bump:patch": "npm version patch",
+    "bump:minor": "npm version minor",
+    "bump:major": "npm version major",
+    "release": "npm run build:lib && npm run bump:patch && npm publish"
   },
   "dependencies": {
-    "@types/chroma-js": "^2.4.4",
-    "@types/lodash": "^4.14.202",
-    "@types/promise-sequential": "^1.1.2",
-    "@types/randomcolor": "^0.5.9",
-    "chroma-js": "^2.4.2",
     "lodash": "^4.17.21",
-    "promise-sequential": "^1.1.1",
-    "randomcolor": "^0.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rooks": "^7.14.1",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {
+    "@types/chroma-js": "^2.4.4",
+    "@types/lodash": "^4.14.202",
     "@types/node": "^20.11.24",
+    "@types/promise-sequential": "^1.1.2",
+    "@types/randomcolor": "^0.5.9",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
     "@vitejs/plugin-react": "^4.2.1",
+    "chroma-js": "^2.4.2",
     "eslint": "^8.56.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",
@@ -39,10 +57,30 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
 
+    "randomcolor": "^0.6.2",
     "reset-css": "^5.0.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2",
     "vite": "^5.1.4",
     "vite-plugin-dts": "^3.7.3"
+  },
+  "peerDependencies": {
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rooks": "^7.14.1",
+    "styled-components": "^6.1.8"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/react-random-gallery.umd.js",
+  "module": "./dist/react-random-gallery.es.js",
+  "types": "./dist/react-random-gallery.es.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/react-random-gallery.umd.js",
+      "import": "./dist/react-random-gallery.es.js"
+    }
   }
 }

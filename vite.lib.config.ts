@@ -1,25 +1,35 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import dts from 'vite-plugin-dts';
-import { resolve } from 'path';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import dts from 'vite-plugin-dts'
+import { resolve } from 'path'
 
-export default defineConfig(({ command, mode }) => ({
-  plugins: [react(), dts()],
+export default defineConfig(() => ({
+  plugins: [
+    react(),
+    dts({
+      rollupTypes: true,
+      insertTypesEntry: true
+    })
+  ],
   build: {
+    sourcemap: true,
     lib: {
       entry: resolve(__dirname, 'lib/index.ts'),
-      name: 'Gallery',
+      name: 'react-random-gallery',
       formats: ['es', 'umd'],
-      fileName: (format) => `gallery.${format}.js`
+      fileName: (format) => `react-random-gallery.${format}.js`
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom', 'styled-components', 'rooks', 'lodash'],
       output: {
         globals: {
           react: 'React',
-          'react-dom': 'ReactDOM'
+          'react-dom': 'ReactDOM',
+          'styled-components': 'styled',
+          rooks: 'rooks',
+          lodash: 'lodash'
         }
       }
     }
   }
-}));
+}))

@@ -1,5 +1,5 @@
 import { formatSrcSet } from '.'
-import { TImage, TLoadedImage } from '../types'
+import { TImage, TLoadedImage } from '..'
 
 export const loadImages = (images: TImage[]): Promise<TLoadedImage[]> => {
   return Promise.all(images.map(async (image) => new Promise((resolve, reject) => {

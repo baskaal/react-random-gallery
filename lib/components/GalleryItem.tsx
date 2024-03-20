@@ -1,5 +1,5 @@
 import { SGalleryItem, SGalleryItemImage } from './Gallery.styled'
-import { TPlacedImage, TOptions } from '../types'
+import { TPlacedImage, TOptions } from '..'
 import { formatSrcSet } from '../helpers'
 
 type GalleryItemProps = {

@@ -3,7 +3,7 @@ import { useAsyncEffect } from 'rooks'
 import { SGallery, SGalleryBackdrop } from './Gallery.styled'
 import { GalleryItem } from './GalleryItem'
 import { createGallery } from '../helpers'
-import { TImage, TPlacedImage, TOptions } from '../types'
+import { TImage, TPlacedImage, TOptions } from '..'
 
 type GalleryProps = {
   images: TImage[];
