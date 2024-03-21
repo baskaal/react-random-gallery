@@ -6,17 +6,17 @@ type GalleryItemProps = {
   image: TPlacedImage;
   selected: boolean;
   onPreviewImage: () => void;
-  options: TOptions;
+  options?: TOptions;
 }
 
-export const GalleryItem = ({ image, selected, onPreviewImage, options }: GalleryItemProps) => (
+export const GalleryItem = ({ image, selected, onPreviewImage, options, ...props }: GalleryItemProps) => (
   <SGalleryItem
     style={{
       width: image.style.width,
       height: image.style.height
     }}
     animation={{
-      ...options.animation,
+      ...options?.animation,
       style: {
         top: image.style.top,
         left: image.style.left,
@@ -25,6 +25,7 @@ export const GalleryItem = ({ image, selected, onPreviewImage, options }: Galler
     }}
     onClick={onPreviewImage}
     selected={selected}
+    {...props}
   >
     <picture>
       { image.formats?.map((format) => (

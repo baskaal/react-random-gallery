@@ -1,9 +1,9 @@
 import styled, { css, keyframes } from 'styled-components'
 
-export const SGallery = styled.div<{ height: string | number }>(({ height }) => ({
+export const SGallery = styled.div<{ height: string | number, width: string | number }>(({ height, width }) => ({
   position: 'relative',
-  width: '100%',
-  height
+  height,
+  width
 }))
 
 const posAnimation = ({ top, left, transform }: any) => keyframes`

@@ -35,6 +35,7 @@ export type TImageCoords = {
 export type TOptions = {
   gallery?: {
     height?: string | number;
+    width?: string | number;
   };
   images?: {
     offset?: number;

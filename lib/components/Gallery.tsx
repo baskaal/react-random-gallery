@@ -7,12 +7,12 @@ import { TImage, TPlacedImage, TOptions } from '..'
 
 type GalleryProps = {
   images: TImage[];
-  options: TOptions;
+  options?: TOptions;
 }
 
 export const Gallery: FC<GalleryProps> = ({ images, options }) => {
   const galleryRef = useRef<HTMLDivElement>(null)
-  const [gallery, setGallery] = useState<{ height: number, images?: TPlacedImage[] }>({ height: 500 })
+  const [gallery, setGallery] = useState<{ height: number, width: number, images?: TPlacedImage[] }>({ height: 500, width: 500 })
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
 
   const previewImage = (index: number) => {
@@ -29,11 +29,14 @@ export const Gallery: FC<GalleryProps> = ({ images, options }) => {
 
     const gallery = await createGallery(galleryRef.current, images, options)
     setGallery(gallery)
-  }, [galleryRef.current])
+  }, [images, galleryRef.current])
 
   return (
     <div ref={galleryRef}>
-      <SGallery height={options.gallery?.height || gallery.height}>
+      <SGallery
+        height={options?.gallery?.height || gallery.height}
+        width={options?.gallery?.width || gallery.width}
+      >
         <SGalleryBackdrop
           onClick={() => clearPreviewImage()}
           selected={selectedImageIndex !== null}
@@ -41,6 +44,7 @@ export const Gallery: FC<GalleryProps> = ({ images, options }) => {
         { gallery.images?.map((image, imageIndex: number) => (
           <GalleryItem
             key={`image-${imageIndex}`}
+            test-id={`image-${imageIndex}`}
             image={image}
             selected={selectedImageIndex === imageIndex}
             onPreviewImage={() => previewImage(imageIndex)}

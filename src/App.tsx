@@ -1,35 +1,15 @@
-import { times, random, last } from 'lodash'
-import randomcolor from 'randomcolor'
+import { useDebouncedValue, useWindowSize } from 'rooks'
 import { Gallery, TOptions } from '../lib'
+import { getImages } from './helpers'
 import { GlobalStyle, colors } from './style'
-
-const getNumber = (range: [number, number]) => Math.ceil(random(range[0], range[1]) / 10) * 10
-
-const getImages = () => {
-  const settingsPerBreakpoint: { [bp: string]: { range: [number, number] } } = {
-    0: { range: [20, 100] },
-    320: { range: [40, 140] },
-    768: { range: [60, 180] },
-    1024: { range: [80, 220] }
-  }
-
-  const settings = last(Object.entries(settingsPerBreakpoint).filter(([bp]) => window.innerWidth >= Number(bp)))![1]
-
-  return times(40, (index: number) => {
-    const bg = randomcolor().replace('#', '')
-    const w = getNumber(settings.range)
-    const h = getNumber(settings.range)
-    const getImgUrl = (retina = 0) => `https://placehold.co/${w}x${h}${retina ? `@${retina}x` : ''}/${bg}/fff.webp?font=roboto`
-
-    return {
-      src: getImgUrl(),
-      srcSet: [getImgUrl(), getImgUrl(2), getImgUrl(3)],
-      alt: `Example image ${index}`
-    }
-  })
-}
+import { useMemo } from 'react'
 
 const App = () => {
+  const { innerWidth } = useWindowSize()
+  const [debouncedInnerWidth] = useDebouncedValue(innerWidth, 300)
+
+  const images = useMemo(() => getImages(debouncedInnerWidth || 0), [debouncedInnerWidth])
+
   const options: TOptions = {
     gallery: {
       height: 'calc(100vh - 4rem)'
@@ -42,8 +22,6 @@ const App = () => {
       duration: '.5s'
     }
   }
-
-  const images = getImages()
 
   return (
     <>
