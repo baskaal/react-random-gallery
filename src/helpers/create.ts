@@ -1,5 +1,5 @@
 import { maxBy, pull, sample } from 'lodash'
-import { checkPlacement, getRandomPlacement, loadImages } from './'
+import { checkPlacement, getRandomPlacement, loadImages } from '.'
 import { TImage, TLoadedImage, TPlacedImage, TOptions } from '..'
 
 export const createGallery = async (el: HTMLDivElement, images: TImage[], options?: TOptions) => {

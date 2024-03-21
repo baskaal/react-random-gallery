@@ -25,7 +25,10 @@ export const Gallery: FC<GalleryProps> = ({ images, options }) => {
 
   useAsyncEffect(async () => {
     if (!images?.length) return
-    if (!galleryRef?.current) return
+
+    console.log('images: ', images)
+
+    if (!galleryRef.current) return
 
     const gallery = await createGallery(galleryRef.current, images, options)
     setGallery(gallery)

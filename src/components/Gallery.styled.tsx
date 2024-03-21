@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from 'styled-components'
+import { styled, css, keyframes } from 'styled-components'
 
 export const SGallery = styled.div<{ height: string | number, width: string | number }>(({ height, width }) => ({
   position: 'relative',

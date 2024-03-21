@@ -1,17 +1,6 @@
 {
   "name": "react-random-gallery",
-  "version": "0.1.1",
-  "type": "module",
-  "author": "Bas Kaal",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/3askaal/react-random-gallery.git"
-  },
-  "bugs": {
-    "url": "https://github.com/3askaal/react-random-gallery/issues"
-  },
-  "homepage": "https://github.com/3askaal/react-random-gallery#readme",
+  "version": "0.1.6",
   "keywords": [
     "react",
     "component",
@@ -19,27 +8,45 @@
     "image",
     "gallery"
   ],
+  "homepage": "https://github.com/3askaal/react-random-gallery#readme",
+  "bugs": {
+    "url": "https://github.com/3askaal/react-random-gallery/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3askaal/react-random-gallery.git"
+  },
+  "license": "MIT",
+  "author": "Bas Kaal",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0"
+  },
+  "exports": {
+    ".": {
+      "require": "./dist/react-random-gallery.umd.js",
+      "import": "./dist/react-random-gallery.es.js"
+    }
+  },
+  "main": "./dist/react-random-gallery.umd.js",
+  "module": "./dist/react-random-gallery.es.js",
+  "types": "./dist/react-random-gallery.es.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
-    "build:lib": "tsc && vite build --config vite.lib.config.ts",
+    "build:module": "tsc && vite build --config vite.module.config.ts",
+    "bump:major": "npm version major",
+    "bump:minor": "npm version minor",
+    "bump:patch": "npm version patch",
+    "dev": "vite",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "vitest",
-    "test:watch": "vitest --watch",
-    "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "bump:patch": "npm version patch",
-    "bump:minor": "npm version minor",
-    "bump:major": "npm version major",
-    "release": "npm run build:lib && npm run bump:patch && npm publish"
-  },
-  "dependencies": {
-    "lodash": "^4.17.21",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "rooks": "^7.14.1",
-    "styled-components": "^6.1.8"
+    "test:ui": "vitest --ui",
+    "test:watch": "vitest --watch"
   },
   "devDependencies": {
     "@testing-library/react": "^14.2.2",
@@ -63,9 +70,14 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "jsdom": "^24.0.0",
+    "lodash": "^4.17.21",
 
     "randomcolor": "^0.6.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "reset-css": "^5.0.2",
+    "rooks": "^7.14.1",
+    "styled-components": "^6.1.8",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2",
     "vite": "^5.1.4",
@@ -73,22 +85,8 @@
     "vitest": "^1.4.0"
   },
   "peerDependencies": {
-    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rooks": "^7.14.1",
     "styled-components": "^6.1.8"
-  },
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/react-random-gallery.umd.js",
-  "module": "./dist/react-random-gallery.es.js",
-  "types": "./dist/react-random-gallery.es.d.ts",
-  "exports": {
-    ".": {
-      "require": "./dist/react-random-gallery.umd.js",
-      "import": "./dist/react-random-gallery.es.js"
-    }
   }
 }

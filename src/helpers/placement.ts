@@ -1,5 +1,5 @@
 import { random } from 'lodash'
-import { contains, overlaps } from './'
+import { contains, overlaps } from '.'
 import { TLoadedImage, TImageCoords, TOptions, TPlacedImage } from '..'
 
 export const getRandomPlacement = (image: TLoadedImage, galleryWidth: number, galleryHeight: number, options?: TOptions): TPlacedImage => {
