@@ -9,7 +9,7 @@ export const createGallery = async (el: HTMLDivElement, images: TImage[], option
   const maxTries = 2000
   let tries = 0
 
-  let unplacedImages: TLoadedImage[] = await loadImages(images)
+  let unplacedImages: TLoadedImage[] = await loadImages(images, options)
 
   const placedImages: TPlacedImage[] = []
 
@@ -41,7 +41,7 @@ export const createGallery = async (el: HTMLDivElement, images: TImage[], option
       if (options?.gallery?.height) {
         unplacedImages = []
       } else {
-        galleryHeight += randomImage.height
+        galleryHeight += 100
         tries = 0
       }
     }
@@ -49,7 +49,7 @@ export const createGallery = async (el: HTMLDivElement, images: TImage[], option
 
   if (!options?.gallery?.height) {
     const bottomImage = maxBy(placedImages, ({ y, height }) => y + height)!
-    galleryHeight = bottomImage.x + bottomImage.height
+    galleryHeight = bottomImage.y + bottomImage.height
   }
 
   return {

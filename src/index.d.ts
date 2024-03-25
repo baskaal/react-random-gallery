@@ -41,6 +41,7 @@ export type TOptions = {
     offset?: number;
     rotation?: number;
     maxWidth?: number;
+    maxHeight?: number;
   };
   animation: {
     duration?: string | number;
