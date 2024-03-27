@@ -43,7 +43,7 @@ export type TOptions = {
     maxWidth?: number;
     maxHeight?: number;
   };
-  animation: {
+  animation?: {
     duration?: string | number;
     delay?: string | number;
   };

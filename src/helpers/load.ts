@@ -1,12 +1,12 @@
 import { formatSrcSet } from '.'
 import { TImage, TLoadedImage, TOptions } from '..'
 
-export const loadImages = (images: TImage[], options?: TOptions): Promise<TLoadedImage[]> => {
+export const loadImages = (images: TImage[], options: TOptions): Promise<TLoadedImage[]> => {
   return Promise.all(images.map(async (image) => new Promise((resolve, reject) => {
     const img = new Image()
 
-    const maxWidth = options?.images?.maxWidth
-    const maxHeight = options?.images?.maxHeight
+    const maxWidth = options.images?.maxWidth
+    const maxHeight = options.images?.maxHeight
 
     img.onload = () => {
       const width = img.naturalWidth

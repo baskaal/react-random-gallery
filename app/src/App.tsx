@@ -16,7 +16,8 @@ const App = () => {
     },
     images: {
       offset: -10,
-      rotation: 10
+      rotation: 10,
+      maxWidth: 200
     },
     animation: {
       duration: '.5s'

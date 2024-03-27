@@ -12,8 +12,8 @@ type GalleryItemProps = {
 export const GalleryItem = ({ image, selected, onPreviewImage, options, ...props }: GalleryItemProps) => (
   <SGalleryItem
     style={{
-      width: image.style.width,
-      height: image.style.height
+      maxWidth: image.style.width,
+      maxHeight: image.style.height
     }}
     animation={{
       ...options?.animation,

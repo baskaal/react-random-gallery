@@ -2,7 +2,7 @@ import { maxBy, pull, sample } from 'lodash'
 import { checkPlacement, getRandomPlacement, loadImages } from '.'
 import { TImage, TLoadedImage, TPlacedImage, TOptions } from '..'
 
-export const createGallery = async (el: HTMLDivElement, images: TImage[], options?: TOptions) => {
+export const createGallery = async (el: HTMLDivElement, images: TImage[], options: TOptions = {}) => {
   const galleryWidth = Math.floor(el.getBoundingClientRect().width || 0)
   let galleryHeight = options?.gallery?.height ? Math.floor(el.getBoundingClientRect().height || 0) : 500
 
@@ -24,7 +24,7 @@ export const createGallery = async (el: HTMLDivElement, images: TImage[], option
       placedImages,
       galleryWidth,
       galleryHeight,
-      offset: options?.images?.offset
+      offset: options.images?.offset
     })
 
     if (goodPlacement) {
@@ -38,7 +38,7 @@ export const createGallery = async (el: HTMLDivElement, images: TImage[], option
     const noSpaceLeft = tries === maxTries
 
     if (noSpaceLeft) {
-      if (options?.gallery?.height) {
+      if (options.gallery?.height) {
         unplacedImages = []
       } else {
         galleryHeight += 100
@@ -47,7 +47,7 @@ export const createGallery = async (el: HTMLDivElement, images: TImage[], option
     }
   }
 
-  if (!options?.gallery?.height) {
+  if (!options.gallery?.height) {
     const bottomImage = maxBy(placedImages, ({ y, height }) => y + height)!
     galleryHeight = bottomImage.y + bottomImage.height
   }
