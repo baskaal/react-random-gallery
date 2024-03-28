@@ -3,14 +3,9 @@ import { useAsyncEffect } from 'rooks'
 import { SGallery, SGalleryBackdrop } from './Gallery.styled'
 import { GalleryItem } from './GalleryItem'
 import { createGallery } from '../helpers'
-import { TImage, TPlacedImage, TOptions } from '..'
+import { TGalleryProps, TPlacedImage } from '..'
 
-type GalleryProps = {
-  images: TImage[];
-  options?: TOptions;
-}
-
-export const Gallery: FC<GalleryProps> = ({ images, options }) => {
+export const Gallery: FC<TGalleryProps> = ({ images, options }) => {
   const galleryRef = useRef<HTMLDivElement>(null)
   const [gallery, setGallery] = useState<{ height: number, width: number, images?: TPlacedImage[] }>({ height: 500, width: 500 })
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)

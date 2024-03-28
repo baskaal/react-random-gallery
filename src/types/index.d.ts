@@ -48,3 +48,8 @@ export type TOptions = {
     delay?: string | number;
   };
 }
+
+export type TGalleryProps = {
+  images: TImage[];
+  options?: TOptions;
+}

@@ -7,8 +7,8 @@ export default defineConfig(() => ({
   plugins: [
     react(),
     dts({
-      rollupTypes: true,
-      insertTypesEntry: true
+      insertTypesEntry: true,
+      copyDtsFiles: true
     })
   ],
   build: {

@@ -1,2 +1,2 @@
 export * from './components/Gallery'
-export * from './index.d'
+export * from './types/index.d'
