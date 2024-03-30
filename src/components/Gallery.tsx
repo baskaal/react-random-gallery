@@ -1,5 +1,5 @@
 import { FC, useRef, useState } from 'react'
-import { useAsyncEffect } from 'rooks'
+import { useAsyncEffect, useDebouncedValue, useWindowSize } from 'rooks'
 import { SGallery, SGalleryBackdrop } from './Gallery.styled'
 import { GalleryItem } from './GalleryItem'
 import { createGallery } from '../helpers'
@@ -9,6 +9,9 @@ export const Gallery: FC<TGalleryProps> = ({ images, options }) => {
   const galleryRef = useRef<HTMLDivElement>(null)
   const [gallery, setGallery] = useState<{ height: number, width: number, images?: TPlacedImage[] }>({ height: 500, width: 500 })
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
+
+  const { innerWidth } = useWindowSize()
+  const [debouncedWidth] = useDebouncedValue(innerWidth, 300)
 
   const previewImage = (index: number) => {
     setSelectedImageIndex(index)
@@ -24,7 +27,7 @@ export const Gallery: FC<TGalleryProps> = ({ images, options }) => {
 
     const gallery = await createGallery(galleryRef.current, images, options)
     setGallery(gallery)
-  }, [images, galleryRef.current])
+  }, [images, galleryRef.current, debouncedWidth])
 
   return (
     <div ref={galleryRef}>

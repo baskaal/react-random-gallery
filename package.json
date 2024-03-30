@@ -1,6 +1,6 @@
 {
   "name": "react-random-gallery",
-  "version": "1.2.2",
+  "version": "1.4.0",
   "keywords": [
     "react",
     "component",
@@ -50,7 +50,6 @@
   },
   "devDependencies": {
     "@testing-library/react": "^14.2.2",
-    "@types/chroma-js": "^2.4.4",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.11.24",
     "@types/promise-sequential": "^1.1.2",
@@ -61,7 +60,6 @@
     "@typescript-eslint/parser": "^7.0.2",
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-v8": "^1.4.0",
-    "chroma-js": "^2.4.2",
     "eslint": "^8.56.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",

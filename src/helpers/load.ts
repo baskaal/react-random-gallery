@@ -25,6 +25,6 @@ export const loadImages = (images: TImage[], options: TOptions): Promise<TLoaded
     img.onerror = (error) => reject(error)
 
     if (image.srcSet) img.srcset = formatSrcSet(image.srcSet)
-    img.src = image.src
+    if (image.src) img.src = image.src
   })))
 }

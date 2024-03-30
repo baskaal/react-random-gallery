@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components'
-import { colors } from '.'
 
 export const GlobalStyle = createGlobalStyle({
   '*': {
@@ -13,6 +12,6 @@ export const GlobalStyle = createGlobalStyle({
   },
 
   body: {
-    backgroundColor: colors.white
+    backgroundColor: '#fcfcfc'
   }
 })

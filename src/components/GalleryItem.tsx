@@ -9,37 +9,31 @@ type GalleryItemProps = {
   options?: TOptions;
 }
 
-export const GalleryItem = ({ image, selected, onPreviewImage, options, ...props }: GalleryItemProps) => (
-  <SGalleryItem
-    style={{
-      maxWidth: image.style.width,
-      maxHeight: image.style.height
-    }}
-    animation={{
-      ...options?.animation,
-      style: {
-        top: image.style.top,
-        left: image.style.left,
-        transform: image.style.transform
-      }
-    }}
-    onClick={onPreviewImage}
-    selected={selected}
-    {...props}
-  >
-    <picture>
-      { image.formats?.map((format) => (
-        <source
-          srcSet={formatSrcSet(format.srcSet)}
-          media={`(min-width: ${format.size})`}
-        />
-      )) }
+export const GalleryItem = ({ image, selected, onPreviewImage, options, ...props }: GalleryItemProps) => {
+  return (
+    <SGalleryItem
+      style={{
+        maxWidth: image.style.width,
+        maxHeight: image.style.height
+      }}
+      animation={{
+        ...options?.animation,
+        style: {
+          top: image.style.top,
+          left: image.style.left,
+          transform: image.style.transform
+        }
+      }}
+      onClick={onPreviewImage}
+      selected={selected}
+      {...props}
+    >
       <SGalleryItemImage
-        src={image.src}
-        srcSet={image.srcSet && formatSrcSet(image.srcSet)}
+        {...(image.src && { src: image.src })}
+        {...(image.srcSet && { srcSet: formatSrcSet(image.srcSet) })}
         alt={image.alt}
         selected={selected}
       />
-    </picture>
-  </SGalleryItem>
-)
+    </SGalleryItem>
+  )
+}

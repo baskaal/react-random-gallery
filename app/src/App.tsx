@@ -1,14 +1,9 @@
-import { useMemo } from 'react'
-import { useDebouncedValue, useWindowSize } from 'rooks'
 import { Gallery, TOptions } from '../../src'
 import { getImages } from './helpers'
-import { GlobalStyle, colors } from './style'
+import { GlobalStyle } from './style'
 
 const App = () => {
-  const { innerWidth } = useWindowSize()
-  const [debouncedInnerWidth] = useDebouncedValue(innerWidth, 300)
-
-  const images = useMemo(() => getImages(debouncedInnerWidth || 0), [debouncedInnerWidth])
+  const images = getImages()
 
   const options: TOptions = {
     gallery: {
@@ -16,8 +11,7 @@ const App = () => {
     },
     images: {
       offset: -10,
-      rotation: 10,
-      maxWidth: 200
+      rotation: 10
     },
     animation: {
       duration: '.5s'
@@ -27,7 +21,7 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      <div style={{ margin: '2rem', border: `1px solid ${colors.grey}` }}>
+      <div style={{ margin: '2rem', border: '1px solid #cccccc' }}>
         <Gallery images={images} options={options} />
       </div>
     </>

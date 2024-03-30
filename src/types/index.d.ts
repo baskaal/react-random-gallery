@@ -1,11 +1,7 @@
 export type TImage = {
-  src: string;
+  src?: string;
   srcSet?: string[];
   alt?: string;
-  formats?: {
-    srcSet: string[];
-    size: string;
-  }[];
 }
 
 export type TLoadedImage = TImage & {
