@@ -1,3 +1,5 @@
+import { RefObject } from 'react'
+
 export type TImage = {
   src?: string;
   srcSet?: string[];
@@ -42,10 +44,20 @@ export type TOptions = {
   animation?: {
     duration?: string | number;
     delay?: string | number;
+    timingFunction?: string | number;
   };
 }
 
 export type TGalleryProps = {
   images: TImage[];
   options?: TOptions;
+}
+
+export type TGalleryItemProps = {
+  image: TPlacedImage;
+  imageIndex: number;
+  isSelected: boolean;
+  options?: TOptions;
+  styleRef: RefObject<HTMLStyleElement>;
+  onPreviewImage: () => void;
 }

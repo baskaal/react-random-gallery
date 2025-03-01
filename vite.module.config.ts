@@ -20,12 +20,11 @@ export default defineConfig(() => ({
       fileName: (format) => `react-random-gallery.${format}.js`
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'styled-components'],
+      external: ['react', 'react-dom'],
       output: {
         globals: {
           react: 'React',
-          'react-dom': 'ReactDOM',
-          'styled-components': 'styled'
+          'react-dom': 'ReactDOM'
         },
         interop: 'compat'
       }

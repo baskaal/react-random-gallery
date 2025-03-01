@@ -6,7 +6,7 @@ export const createGallery = async (el: HTMLDivElement, images: TImage[], option
   const galleryWidth = Math.floor(el.getBoundingClientRect().width || 0)
   let galleryHeight = options?.gallery?.height ? Math.floor(el.getBoundingClientRect().height || 0) : 500
 
-  const maxTries = 2000
+  const maxTries = 1000
   let tries = 0
 
   let unplacedImages: TLoadedImage[] = await loadImages(images, options)

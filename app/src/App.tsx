@@ -1,6 +1,5 @@
 import { Gallery, TOptions } from '../../src'
 import { getImages } from './helpers'
-import { GlobalStyle } from './style'
 
 const App = () => {
   const images = getImages()
@@ -19,12 +18,9 @@ const App = () => {
   }
 
   return (
-    <>
-      <GlobalStyle />
-      <div style={{ margin: '2rem', border: '1px solid #cccccc' }}>
-        <Gallery images={images} options={options} />
-      </div>
-    </>
+    <div style={{ margin: '2rem', border: '1px solid #cccccc' }}>
+      <Gallery images={images} options={options} />
+    </div>
   )
 }
 
